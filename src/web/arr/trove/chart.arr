@@ -129,6 +129,10 @@ y-max-method = method(self, y-max :: Number):
   self.constr()(self.obj.{y-max: some(y-max)})
 end
 
+format-y-axis-method = method(self, format :: String):
+  self.constr()(self.obj.{y-axis-format: some(format)})
+end
+
 ################################################################################
 # BOUNDING BOX
 ################################################################################
@@ -217,12 +221,14 @@ type MultiBarChartSeries = {
   tab :: TableIntern,
   legends :: RawArray<String>,
   is-stacked :: Boolean,
-  colors :: Option<List<I.Color>>
+  colors :: Option<List<I.Color>>,
+  y-axis-format :: String,
 }
 
 default-multi-bar-chart-series = {
   is-stacked: false,
-  colors: none
+  colors: none,
+  y-axis-format: '',
 }
   
 type HistogramSeries = {
@@ -407,10 +413,12 @@ data DataSeries:
     default-color: color-method, 
     colors: color-list-method,
     constr: {(): bar-chart-series},
+    format-y-axis: format-y-axis-method,
   | multi-bar-chart-series(obj :: MultiBarChartSeries) with: 
     is-single: true,
     colors: color-list-method,
     constr: {(): multi-bar-chart-series}
+    format-y-axis: format-y-axis-method,
   | box-plot-series(obj :: BoxChartSeries) with:
     is-single: true,
     constr: {(): box-plot-series},
