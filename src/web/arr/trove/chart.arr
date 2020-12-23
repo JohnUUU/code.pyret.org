@@ -130,7 +130,7 @@ y-max-method = method(self, y-max :: Number):
 end
 
 format-y-axis-method = method(self, format :: String):
-  self.constr()(self.obj.{y-axis-format: some(format)})
+  self.constr()(self.obj.{y-axis-format: format})
 end
 
 ################################################################################
@@ -217,6 +217,7 @@ type BarChartSeries = {
 default-bar-chart-series = {
   color: none,
   colors: none,
+  y-axis-format: '',
 }
 
 type MultiBarChartSeries = { 
@@ -419,7 +420,7 @@ data DataSeries:
   | multi-bar-chart-series(obj :: MultiBarChartSeries) with: 
     is-single: true,
     colors: color-list-method,
-    constr: {(): multi-bar-chart-series}
+    constr: {(): multi-bar-chart-series},
     format-y-axis: format-y-axis-method,
   | box-plot-series(obj :: BoxChartSeries) with:
     is-single: true,

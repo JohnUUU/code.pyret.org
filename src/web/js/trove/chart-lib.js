@@ -264,6 +264,18 @@
     $.extend(options, {hAxis: hAxis});
   }
 
+  function yAxisFormatMutator(options, globalOptions, rawData) {
+    const vAxis = ('vAxis' in options) ? options.vAxis : {};
+    vAxis.format = get(rawData, 'y-axis-format');
+    $.extend(options, {vAxis : vAxis});
+  }
+
+  function xAxisFormatMutator(options, globalOptions, rawData) {
+    const hAxis = ('hAxis' in options) ? options.hAxis : {};
+    vAxis.format = get(rawData, 'x-axis-format');
+    $.extend(options, {hAxis : hAxis});
+  }
+
   //////////////////////////////////////////////////////////////////////////////
 
   function pieChart(globalOptions, rawData) {
@@ -329,7 +341,7 @@
       },
       chartType: google.visualization.ColumnChart,
       onExit: defaultImageReturn,
-      mutators: [axesNameMutator, yAxisRangeMutator],
+      mutators: [axesNameMutator, yAxisRangeMutator, yAxisFormatMutator],
     };
   }
 
@@ -366,7 +378,7 @@
       },
       chartType: google.visualization.ColumnChart,
       onExit: defaultImageReturn,
-      mutators: [axesNameMutator, yAxisRangeMutator],
+      mutators: [axesNameMutator, yAxisRangeMutator, yAxisFormatMutator],
     };
   }
 
